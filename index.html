@@ -544,16 +544,96 @@
   .delay-3 { animation-delay: 0.3s; }
   .delay-4 { animation-delay: 0.4s; }
 
+  /* HAMBURGER */
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    cursor: pointer;
+    padding: 4px;
+    background: none;
+    border: none;
+  }
+
+  .nav-hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--text);
+    border-radius: 2px;
+    transition: all 0.3s;
+  }
+
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 57px; left: 0; right: 0;
+    background: rgba(10,10,15,0.97);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    z-index: 99;
+    padding: 1rem 0;
+  }
+
+  .mobile-menu.open { display: block; }
+
+  .mobile-menu a {
+    display: block;
+    padding: 0.85rem 2rem;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border);
+    transition: color 0.2s, background 0.2s;
+  }
+
+  .mobile-menu a:last-child { border-bottom: none; }
+  .mobile-menu a:hover { color: var(--text); background: var(--bg2); }
+
   @media (max-width: 768px) {
     nav { padding: 1rem 1.5rem; }
     nav ul { display: none; }
-    .hero { padding: 5rem 1.5rem 3rem; }
-    .hero-inner { grid-template-columns: 1fr; }
-    section { padding: 3rem 1.5rem; }
-    .divider { margin: 0 1.5rem; }
-    .timeline-item { grid-template-columns: 1fr; }
-    .timeline-dot { display: none; }
-    .contact-inner { padding: 2rem 1.5rem; }
+    .nav-hamburger { display: flex; }
+
+    .hero { padding: 5rem 1.25rem 3rem; }
+    .hero-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .hero h1 { font-size: 2.4rem; }
+    .hero-desc { max-width: 100%; }
+    .hero-actions { flex-direction: column; }
+    .hero-actions .btn { width: 100%; justify-content: center; }
+
+    .terminal-body { padding: 1rem; font-size: 12px; }
+
+    section { padding: 2.5rem 1.25rem; }
+    .divider { margin: 0 1.25rem; }
+
+    .section-title { font-size: 1.6rem; margin-bottom: 1.5rem; }
+
+    .skills-grid { grid-template-columns: 1fr; gap: 0.75rem; }
+    .projects-grid { grid-template-columns: 1fr; gap: 0.75rem; }
+
+    .project-card { padding: 1.25rem; }
+
+    .contact-inner { padding: 2rem 1.25rem; }
+    .contact-inner h2 { font-size: 1.5rem; }
+    .contact-links { flex-direction: column; align-items: stretch; }
+    .contact-links .btn { width: 100%; justify-content: center; text-align: center; }
+
+    footer { padding: 1.5rem 1.25rem; }
+  }
+
+  @media (max-width: 480px) {
+    .hero h1 { font-size: 2rem; }
+    .hero-tag { font-size: 10px; }
+    .terminal { font-size: 11px; }
+    .stack-tag, .tag { font-size: 10px; }
   }
 </style>
 </head>
@@ -567,7 +647,17 @@
     <li><a href="#websites">Websites</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
+  <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#skills" onclick="closeMenu()">Skills</a>
+  <a href="#projects" onclick="closeMenu()">Projects</a>
+  <a href="#websites" onclick="closeMenu()">Websites</a>
+  <a href="#contact" onclick="closeMenu()">Contact</a>
+</div>
 
 <main>
 
@@ -828,5 +918,17 @@
   <span>Designed & built by Afolayan Oduntan &nbsp;·&nbsp; 2025</span>
 </footer>
 
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+  function closeMenu() {
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+  }
+</script>
 </body>
 </html>
